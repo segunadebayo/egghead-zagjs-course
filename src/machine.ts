@@ -15,8 +15,11 @@ export const machine = createMachine<MachineContext, MachineState>(
   {
     id: "pin-input",
     context: {
-      value: [],
+      value: Array.from<string>({ length: 4 }).fill(""),
       focusedIndex: -1,
+    },
+    watch: {
+      focusedIndex: ["executeFocus"],
     },
     initial: "idle",
     states: {
@@ -54,6 +57,25 @@ export const machine = createMachine<MachineContext, MachineState>(
       },
       clearFocusedIndex(context) {
         context.focusedIndex = -1;
+      },
+      setFocusedValue(context, event) {
+        context.value[context.focusedIndex] = event.value;
+      },
+      focusNextInput(context, event) {
+        const nextIndex = Math.min(
+          context.focusedIndex + 1,
+          context.value.length - 1
+        );
+        context.focusedIndex = nextIndex;
+      },
+      executeFocus(context) {
+        const inputGroup = document.querySelector("[data-part=input-group]");
+        if (!inputGroup || context.focusedIndex === -1) return;
+        const inputElements = Array.from(
+          inputGroup.querySelectorAll<HTMLInputElement>("[data-part=input]")
+        );
+        const input = inputElements[context.focusedIndex];
+        input?.focus();
       },
     },
   }
