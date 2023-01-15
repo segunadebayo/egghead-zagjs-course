@@ -30,7 +30,7 @@ function App() {
               }}
               onKeyDown={(event) => {
                 const { key } = event;
-                if (key === "Escape") {
+                if (key === "Backspace") {
                   send({ type: "BACKSPACE", index });
                 }
               }}
