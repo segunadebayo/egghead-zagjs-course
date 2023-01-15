@@ -35,7 +35,8 @@ function App() {
                 }
               }}
               onPaste={(event) => {
-                const value = event.clipboardData.getData("Text");
+                event.preventDefault();
+                const value = event.clipboardData.getData("Text").trim();
                 send({ type: "PASTE", value, index });
               }}
             />

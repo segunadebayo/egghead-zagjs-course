@@ -86,6 +86,20 @@ export const machine = createMachine<MachineContext, MachineState>(
           input?.focus();
         });
       },
+      setPastedValue(context, event) {
+        const pastedValue: string[] = event.value
+          .split("")
+          .slice(0, context.value.length);
+
+        pastedValue.forEach((value, index) => {
+          context.value[index] = value;
+        });
+      },
+      focusLastEmptyInput(context) {
+        const index = context.value.findIndex((value) => value === "");
+        const lastIndex = context.value.length - 1;
+        context.focusedIndex = index === -1 ? lastIndex : index;
+      },
     },
   }
 );
