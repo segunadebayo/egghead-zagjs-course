@@ -11,7 +11,7 @@ type MachineContext = {
   focusedIndex: number;
 };
 
-const machine = createMachine<MachineContext, MachineState>({
+export const machine = createMachine<MachineContext, MachineState>({
   id: "pin-input",
   context: {
     value: [],

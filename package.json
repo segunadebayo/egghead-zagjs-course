@@ -9,7 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@zag-js/core": "^0.1.11",
+    "@zag-js/core": "^0.2.4",
+    "@zag-js/react": "^0.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
