@@ -10,40 +10,56 @@ function App() {
 
   return (
     <div className="App">
-      <div data-part="container">
-        <label>Enter verification</label>
-        <div data-part="input-group">
-          {inputs.map((index) => (
-            <input
-              key={index}
-              data-part="input"
-              maxLength={2}
-              value={value[index]}
-              onChange={(event) => {
-                const { value } = event.target;
-                send({ type: "INPUT", index, value });
-              }}
-              onFocus={() => {
-                send({ type: "FOCUS", index });
-              }}
-              onBlur={() => {
-                send({ type: "BLUR" });
-              }}
-              onKeyDown={(event) => {
-                const { key } = event;
-                if (key === "Backspace") {
-                  send({ type: "BACKSPACE", index });
-                }
-              }}
-              onPaste={(event) => {
-                event.preventDefault();
-                const value = event.clipboardData.getData("Text").trim();
-                send({ type: "PASTE", value, index });
-              }}
-            />
-          ))}
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          const formData = new FormData(event.currentTarget);
+          console.log(formData.get("pincode"));
+        }}
+      >
+        <div data-part="container">
+          <label
+            onClick={() => {
+              send({ type: "LABEL_CLICK" });
+            }}
+          >
+            Enter verification
+          </label>
+          <input name="pincode" type="hidden" value={value.join("")} />
+          <div data-part="input-group">
+            {inputs.map((index) => (
+              <input
+                key={index}
+                data-part="input"
+                maxLength={2}
+                value={value[index]}
+                onChange={(event) => {
+                  const { value } = event.target;
+                  send({ type: "INPUT", index, value });
+                }}
+                onFocus={() => {
+                  send({ type: "FOCUS", index });
+                }}
+                onBlur={() => {
+                  send({ type: "BLUR" });
+                }}
+                onKeyDown={(event) => {
+                  const { key } = event;
+                  if (key === "Backspace") {
+                    send({ type: "BACKSPACE", index });
+                  }
+                }}
+                onPaste={(event) => {
+                  event.preventDefault();
+                  const value = event.clipboardData.getData("Text").trim();
+                  send({ type: "PASTE", value, index });
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+        <button type="submit">Submit</button>
+      </form>
       <pre>{stringify(state)}</pre>
     </div>
   );
