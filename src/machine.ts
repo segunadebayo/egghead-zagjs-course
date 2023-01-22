@@ -59,7 +59,10 @@ export const machine = createMachine<MachineContext, MachineState>(
         context.focusedIndex = -1;
       },
       setFocusedValue(context, event) {
-        context.value[context.focusedIndex] = event.value;
+        const eventValue: string = event.value;
+        const focusedValue = context.value[context.focusedIndex];
+        const nextValue = getNextValue(focusedValue, eventValue);
+        context.value[context.focusedIndex] = nextValue;
       },
       clearFocusedValue(context) {
         context.value[context.focusedIndex] = "";
@@ -103,3 +106,15 @@ export const machine = createMachine<MachineContext, MachineState>(
     },
   }
 );
+
+function getNextValue(focusedValue: string, eventValue: string) {
+  let nextValue = eventValue;
+  // "2", "29" => "9"
+  if (focusedValue[0] === eventValue[0]) {
+    nextValue = eventValue[1];
+    // "2", "92" => "9"
+  } else if (focusedValue[0] === eventValue[1]) {
+    nextValue = eventValue[0];
+  }
+  return nextValue;
+}
