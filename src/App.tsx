@@ -1,12 +1,15 @@
-import { useMachine } from "@zag-js/react";
 import "./App.css";
-import { machine } from "./machine";
-
-const inputs = [...Array.from({ length: 4 }).keys()];
+import { usePinInput } from "./use-pin-input";
 
 function App() {
-  const [state, send] = useMachine(machine);
-  const { value } = state.context;
+  const { getInputProps, getLabelProps, getHiddenInputProps, value } =
+    usePinInput({
+      numOfFields: 4,
+      name: "pincode",
+      onComplete(value) {
+        console.log({ value });
+      },
+    });
 
   return (
     <div className="App">
@@ -18,49 +21,16 @@ function App() {
         }}
       >
         <div data-part="container">
-          <label
-            onClick={() => {
-              send({ type: "LABEL_CLICK" });
-            }}
-          >
-            Enter verification
-          </label>
-          <input name="pincode" type="hidden" value={value.join("")} />
+          <label {...getLabelProps()}>Enter verification</label>
+          <input {...getHiddenInputProps()} />
           <div data-part="input-group">
-            {inputs.map((index) => (
-              <input
-                key={index}
-                data-part="input"
-                maxLength={2}
-                value={value[index]}
-                onChange={(event) => {
-                  const { value } = event.target;
-                  send({ type: "INPUT", index, value });
-                }}
-                onFocus={() => {
-                  send({ type: "FOCUS", index });
-                }}
-                onBlur={() => {
-                  send({ type: "BLUR" });
-                }}
-                onKeyDown={(event) => {
-                  const { key } = event;
-                  if (key === "Backspace") {
-                    send({ type: "BACKSPACE", index });
-                  }
-                }}
-                onPaste={(event) => {
-                  event.preventDefault();
-                  const value = event.clipboardData.getData("Text").trim();
-                  send({ type: "PASTE", value, index });
-                }}
-              />
+            {value.map((_, index) => (
+              <input key={index} {...getInputProps({ index })} />
             ))}
           </div>
         </div>
         <button type="submit">Submit</button>
       </form>
-      <pre>{stringify(state)}</pre>
     </div>
   );
 }
