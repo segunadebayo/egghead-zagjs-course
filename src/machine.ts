@@ -9,6 +9,8 @@ type MachineState = {
 type MachineContext = {
   value: string[];
   focusedIndex: number;
+  readonly isCompleted: boolean;
+  onComplete?: (value: string[]) => void;
 };
 
 export const machine = createMachine<MachineContext, MachineState>(
@@ -17,9 +19,18 @@ export const machine = createMachine<MachineContext, MachineState>(
     context: {
       value: Array.from<string>({ length: 4 }).fill(""),
       focusedIndex: -1,
+      onComplete(value) {
+        console.log({ value });
+      },
+    },
+    computed: {
+      isCompleted(ctx) {
+        return ctx.value.every((value) => value !== "");
+      },
     },
     watch: {
       focusedIndex: ["executeFocus"],
+      isCompleted: ["invokeOnComplete"],
     },
     initial: "idle",
     states: {
@@ -102,6 +113,10 @@ export const machine = createMachine<MachineContext, MachineState>(
         const index = context.value.findIndex((value) => value === "");
         const lastIndex = context.value.length - 1;
         context.focusedIndex = index === -1 ? lastIndex : index;
+      },
+      invokeOnComplete(context) {
+        if (!context.isCompleted) return;
+        context.onComplete?.(Array.from(context.value));
       },
     },
   }
