@@ -33,16 +33,15 @@ VITE v3.1.4  ready in 694 ms
 
 ## Lessons
 
-Lessons are separated by branches. This branch contains the first lesson and subsequent lessons are in their respective branches.
+Lessons are separated by branches. This branch contains the first set of lesson (01-04) and subsequent lessons are in their respective branches.
 
-- Welcome (📝): [📄 Readme](./src/00/README.md)
-- Lesson 01: [📄 Readme](./src/01/README.md)
-- Lesson 02: [📄 Readme](./src/02/README.md)
-- Lesson 03: [📄 Readme](./src/03/README.md)
-- Lesson 04: [📄 Readme](./src/04/README.md)
-- Lesson 05: [📄 Readme](./src/05/README.md)
-- Lesson 06: [📄 Readme](./src/06/README.md)
-- Lesson 07: [📄 Readme](./src/07/README.md)
-- Lesson 08: [📄 Readme](./src/08/README.md)
-- Lesson 09: [📄 Readme](./src/09/README.md)
-- Lesson 10: [📄 Readme](./src/10/README.md)
+- [Lesson 05](https://github.com/segunadebayo/egghead-zagjs-course/tree/05-create-logic-in-zag)
+- [Lesson 06](https://github.com/segunadebayo/egghead-zagjs-course/tree/06-connect-logic-ui)
+- [Lesson 07](https://github.com/segunadebayo/egghead-zagjs-course/tree/07-handling-focus-and-blur)
+- [Lesson 08](https://github.com/segunadebayo/egghead-zagjs-course/tree/08-handling-input-event)
+- [Lesson 09](https://github.com/segunadebayo/egghead-zagjs-course/tree/09-handling-backspace)
+- [Lesson 10](https://github.com/segunadebayo/egghead-zagjs-course/tree/10-handling-paste-event)
+- [Lesson 11](https://github.com/segunadebayo/egghead-zagjs-course/tree/11-ensure-single-character)
+- [Lesson 12](https://github.com/segunadebayo/egghead-zagjs-course/tree/12-trigger-value-completion)
+- [Lesson 13](https://github.com/segunadebayo/egghead-zagjs-course/tree/13-usage-within-forms)
+- [Lesson 14](https://github.com/segunadebayo/egghead-zagjs-course/tree/14-refactor-hooks)
